@@ -1,0 +1,20 @@
+.DS_Store
+*.log
+
+# 前端
+app/node_modules/
+app/dist/
+app/unpackage/
+app/.env.local
+app/.env.development
+app/.env.production
+
+# 后端
+server/target/
+server/data/
+server/uploads/
+
+# 编辑器
+.idea/
+.vscode/
+.hbuilderx/

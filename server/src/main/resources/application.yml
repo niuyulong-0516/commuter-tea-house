@@ -1,0 +1,46 @@
+server:
+  port: ${SERVER_PORT:8090}
+
+spring:
+  application:
+    name: commuter-tea-house-server
+  datasource:
+    # 本地默认 H2；部署时通过 DATABASE_URL / DATABASE_USER / DATABASE_PASSWORD 切换到 PostgreSQL
+    url: ${JDBC_DATABASE_URL:jdbc:h2:file:./data/commuter-tea;MODE=MySQL;AUTO_SERVER=TRUE}
+    driver-class-name: ${JDBC_DATABASE_DRIVER:org.h2.Driver}
+    username: ${DATABASE_USER:sa}
+    password: ${DATABASE_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Shanghai
+  h2:
+    console:
+      enabled: ${H2_CONSOLE:true}
+      path: /h2-console
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+  jackson:
+    time-zone: Asia/Shanghai
+
+app:
+  upload-dir: ${UPLOAD_DIR:./uploads}
+  # 存储后端：local（本地文件，默认）或 r2（Cloudflare R2）
+  storage: ${STORAGE_TYPE:local}
+  r2:
+    endpoint: ${R2_ENDPOINT:}
+    bucket: ${R2_BUCKET:}
+    access-key: ${R2_ACCESS_KEY:}
+    secret-key: ${R2_SECRET_KEY:}
+    public-url: ${R2_PUBLIC_URL:}
+
+logging:
+  level:
+    root: info
+    com.commutertea: info
