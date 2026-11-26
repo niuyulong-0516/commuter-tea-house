@@ -232,7 +232,8 @@
     "copyright": "© 2026 Café del Commuter. Todos los derechos reservados."
   },
   "agreement": {
-    "empty": "El contenido del acuerdo no está disponible"
+    "empty": "El contenido del acuerdo no está disponible",
+    "title": "Acuerdo"
   },
   "background": {
     "title": "Fondo",
@@ -242,5 +243,8 @@
     "empty": "Aún no has subido ningún fondo",
     "upload": "Subir nuevo fondo",
     "saved": "Fondo actualizado"
+  },
+  "mine": {
+    "title": "Mío"
   }
 }

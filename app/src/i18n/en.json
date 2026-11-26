@@ -232,7 +232,8 @@
     "copyright": "© 2026 Commuter Tea House. All rights reserved."
   },
   "agreement": {
-    "empty": "Agreement content is unavailable"
+    "empty": "Agreement content is unavailable",
+    "title": "Agreement"
   },
   "background": {
     "title": "Background",
@@ -242,5 +243,8 @@
     "empty": "No uploaded backgrounds yet",
     "upload": "Upload new background",
     "saved": "Background updated"
+  },
+  "mine": {
+    "title": "Mine"
   }
 }

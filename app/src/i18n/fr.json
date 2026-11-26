@@ -232,7 +232,8 @@
     "copyright": "© 2026 Salon de Thé du Commuter. Tous droits réservés."
   },
   "agreement": {
-    "empty": "Contenu de l'accord indisponible"
+    "empty": "Contenu de l'accord indisponible",
+    "title": "Conditions"
   },
   "background": {
     "title": "Fond d’écran",
@@ -242,5 +243,8 @@
     "empty": "Aucun fond téléversé pour le moment",
     "upload": "Téléverser un nouveau fond",
     "saved": "Fond mis à jour"
+  },
+  "mine": {
+    "title": "Mon compte"
   }
 }

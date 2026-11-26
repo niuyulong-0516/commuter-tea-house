@@ -232,7 +232,8 @@
     "copyright": "© 2026 Casa de Chá do Commutador. Todos os direitos reservados."
   },
   "agreement": {
-    "empty": "Conteúdo do acordo indisponível"
+    "empty": "Conteúdo do acordo indisponível",
+    "title": "Acordo"
   },
   "background": {
     "title": "Plano de fundo",
@@ -242,5 +243,8 @@
     "empty": "Você ainda não enviou nenhum fundo",
     "upload": "Enviar novo fundo",
     "saved": "Fundo atualizado"
+  },
+  "mine": {
+    "title": "Meu"
   }
 }

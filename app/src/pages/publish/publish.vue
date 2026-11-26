@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view class="card editor">
       <text class="section-label">{{ $t('publish.sectionLabel') }}</text>
 
@@ -97,6 +98,7 @@
 
 <script>
 import { createPost, uploadPostImage } from '@/api/posts'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import { saveDraft, fetchDraft, deleteDraft } from '@/api/library'
 import { getTransportType } from '@/utils/auth'
 

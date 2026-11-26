@@ -24,19 +24,19 @@
     {
       "path": "pages/publish/publish",
       "style": {
-        "navigationBarTitleText": "发一条"
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/detail/detail",
       "style": {
-        "navigationBarTitleText": "茶馆故事"
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/mine/mine",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationStyle": "custom"
       }
     },
     {
@@ -48,7 +48,7 @@
     {
       "path": "pages/profile/profile",
       "style": {
-        "navigationBarTitleText": "个人资料"
+        "navigationStyle": "custom"
       }
     },
     {
@@ -60,46 +60,46 @@
     {
       "path": "pages/favorites/favorites",
       "style": {
-        "navigationBarTitleText": "我的收藏",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/history/history",
       "style": {
-        "navigationBarTitleText": "浏览历史",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/my-posts/my-posts",
       "style": {
-        "navigationBarTitleText": "我的发帖",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/drafts/drafts",
       "style": {
-        "navigationBarTitleText": "草稿箱"
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/feedback/feedback",
       "style": {
-        "navigationBarTitleText": "帮助反馈"
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/about/about",
       "style": {
-        "navigationBarTitleText": "关于"
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/agreement/agreement",
       "style": {
-        "navigationBarTitleText": "协议"
+        "navigationStyle": "custom"
       }
     }
   ],

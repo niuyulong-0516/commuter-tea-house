@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view v-if="loading" class="state">{{ $t('common.loading') }}</view>
     <view v-else-if="!content" class="state">{{ $t('agreement.empty') }}</view>
     <view v-else class="content">{{ content }}</view>
@@ -8,6 +9,7 @@
 
 <script>
 import { fetchAgreement } from '@/api/agreements'
+import PageNavBar from '@/components/page-nav-bar.vue'
 
 export default {
   data() {

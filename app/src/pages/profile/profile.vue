@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view class="card">
       <view class="avatar-row" @click="chooseAvatar">
         <view class="avatar">
@@ -57,6 +58,7 @@
 
 <script>
 import { updateProfile as updateProfileApi } from '@/api/auth'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import { uploadPostImage } from '@/api/posts'
 import { getUser, setUser } from '@/utils/auth'
 import { resolveImageUrl } from '@/utils/format'

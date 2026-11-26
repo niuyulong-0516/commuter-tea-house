@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view class="brand">
       <image class="logo" src="/static/app-logo.png" mode="aspectFit" />
       <text class="app-name">{{ $t('common.appName') }}</text>
@@ -42,9 +43,10 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import PageNavBar from '@/components/page-nav-bar.vue'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, PageNavBar },
   onLoad() {
     uni.setNavigationBarTitle({ title: this.$t('about.title') })
   },

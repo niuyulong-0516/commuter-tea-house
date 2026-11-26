@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view v-if="loading" class="state">
       <text class="state-text">{{ $t('detail.loading') }}</text>
     </view>
@@ -95,6 +96,7 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import { fetchPostDetail } from '@/api/posts'
 import { recordView } from '@/api/library'
 import {
@@ -111,7 +113,7 @@ import {
 } from '@/utils/format'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, PageNavBar },
   data() {
     return {
       id: '',

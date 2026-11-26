@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar :show-back="false" />
     <view class="profile-card">
       <view class="profile-head">
         <view class="avatar">
@@ -45,6 +46,7 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import WaterTabBar from '@/components/water-tab-bar.vue'
 import { getUser } from '@/utils/auth'
 import { resolveImageUrl } from '@/utils/format'

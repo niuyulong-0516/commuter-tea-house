@@ -232,7 +232,8 @@
     "copyright": "© 2026 Pendler-Teehaus. Alle Rechte vorbehalten."
   },
   "agreement": {
-    "empty": "Vereinbarungsinhalt nicht verfügbar"
+    "empty": "Vereinbarungsinhalt nicht verfügbar",
+    "title": "Vereinbarung"
   },
   "background": {
     "title": "Hintergrundbild",
@@ -242,5 +243,8 @@
     "empty": "Noch keine Hintergründe hochgeladen",
     "upload": "Neuen Hintergrund hochladen",
     "saved": "Hintergrund aktualisiert"
+  },
+  "mine": {
+    "title": "Mein Bereich"
   }
 }

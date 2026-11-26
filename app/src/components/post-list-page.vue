@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view v-if="loading" class="state">{{ $t('common.loading') }}</view>
     <view v-else-if="!posts.length" class="state">{{ emptyText }}</view>
     <view v-else class="list">
@@ -23,8 +24,10 @@
 
 <script>
 import { avatarText, timeAgoParts, resolveImageUrl } from '@/utils/format'
+import PageNavBar from '@/components/page-nav-bar.vue'
 
 export default {
+  components: { PageNavBar },
   props: {
     load: { type: Function, required: true },
     emptyText: { type: String, default: '' },

@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar />
     <view v-if="loading" class="state">{{ $t('common.loading') }}</view>
     <view v-else-if="!posts.length" class="state">
       <text class="state-text">{{ $t('favorites.empty') }}</text>
@@ -24,6 +25,7 @@
 
 <script>
 import { fetchFavorites } from '@/api/social'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import { avatarText, timeAgoParts, resolveImageUrl } from '@/utils/format'
 
 export default {
