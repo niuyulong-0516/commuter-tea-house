@@ -172,7 +172,8 @@
     "clearCacheTitle": "캐시 정리",
     "clearCacheContent": "캐시를 정리할까요? 로그인 정보는 유지돼요.",
     "cacheCleared": "캐시를 정리했어요",
-    "helpFeedback": "도움말 및 피드백"
+    "helpFeedback": "도움말 및 피드백",
+    "background": "배경 이미지"
   },
   "profile": {
     "title": "프로필",
@@ -232,5 +233,14 @@
   },
   "agreement": {
     "empty": "약관 내용을 불러올 수 없어요"
+  },
+  "background": {
+    "title": "배경 이미지",
+    "tip": "좋아하는 배경을 고르면 내용이 물방울처럼 그 위에 떠 있습니다. 직접 고른 배경은 변경할 때까지 유지됩니다.",
+    "defaultTitle": "기본 배경",
+    "historyTitle": "사용했던 이미지",
+    "empty": "업로드한 배경이 아직 없습니다",
+    "upload": "새 배경 업로드",
+    "saved": "배경이 변경되었습니다"
   }
 }

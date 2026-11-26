@@ -172,7 +172,8 @@
     "clearCacheTitle": "キャッシュを削除",
     "clearCacheContent": "キャッシュを削除しますか？ログイン情報は保持されます。",
     "cacheCleared": "キャッシュを削除しました",
-    "helpFeedback": "ヘルプとフィードバック"
+    "helpFeedback": "ヘルプとフィードバック",
+    "background": "背景画像"
   },
   "profile": {
     "title": "プロフィール",
@@ -232,5 +233,14 @@
   },
   "agreement": {
     "empty": "規約の内容を読み込めません"
+  },
+  "background": {
+    "title": "背景画像",
+    "tip": "好きな背景を選ぶと、内容が水滴のようにその上に浮かびます。手動で選んだ背景は、変更するまでそのままです。",
+    "defaultTitle": "デフォルト背景",
+    "historyTitle": "使用したことがある画像",
+    "empty": "アップロードした背景はまだありません",
+    "upload": "新しい背景をアップロード",
+    "saved": "背景を変更しました"
   }
 }

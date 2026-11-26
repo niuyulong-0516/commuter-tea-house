@@ -172,7 +172,8 @@
     "clearCacheTitle": "Cache löschen",
     "clearCacheContent": "Cache löschen? Deine Anmeldung bleibt erhalten.",
     "cacheCleared": "Cache gelöscht",
-    "helpFeedback": "Hilfe & Feedback"
+    "helpFeedback": "Hilfe & Feedback",
+    "background": "Hintergrundbild"
   },
   "profile": {
     "title": "Profil",
@@ -232,5 +233,14 @@
   },
   "agreement": {
     "empty": "Vereinbarungsinhalt nicht verfügbar"
+  },
+  "background": {
+    "title": "Hintergrundbild",
+    "tip": "Wähle ein Hintergrundbild aus – der Inhalt schwebt wie ein Wassertropfen darauf. Deine Auswahl bleibt bestehen, bis du sie änderst.",
+    "defaultTitle": "Standardhintergründe",
+    "historyTitle": "Zuvor verwendet",
+    "empty": "Noch keine Hintergründe hochgeladen",
+    "upload": "Neuen Hintergrund hochladen",
+    "saved": "Hintergrund aktualisiert"
   }
 }

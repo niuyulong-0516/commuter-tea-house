@@ -172,7 +172,8 @@
     "clearCacheTitle": "Limpiar caché",
     "clearCacheContent": "¿Limpiar la caché? Tu sesión se mantendrá.",
     "cacheCleared": "Caché limpiada",
-    "helpFeedback": "Ayuda y comentarios"
+    "helpFeedback": "Ayuda y comentarios",
+    "background": "Fondo"
   },
   "profile": {
     "title": "Perfil",
@@ -232,5 +233,14 @@
   },
   "agreement": {
     "empty": "El contenido del acuerdo no está disponible"
+  },
+  "background": {
+    "title": "Fondo",
+    "tip": "Elige un fondo que te guste: el contenido flotará sobre él como una gota de agua. El fondo elegido se mantiene hasta que lo cambies.",
+    "defaultTitle": "Fondos predeterminados",
+    "historyTitle": "Usados antes",
+    "empty": "Aún no has subido ningún fondo",
+    "upload": "Subir nuevo fondo",
+    "saved": "Fondo actualizado"
   }
 }

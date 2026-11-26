@@ -172,7 +172,8 @@
     "clearCacheTitle": "Clear cache",
     "clearCacheContent": "Clear cached data? Your login will be kept.",
     "cacheCleared": "Cache cleared",
-    "helpFeedback": "Help & Feedback"
+    "helpFeedback": "Help & Feedback",
+    "background": "Background"
   },
   "profile": {
     "title": "Profile",
@@ -232,5 +233,14 @@
   },
   "agreement": {
     "empty": "Agreement content is unavailable"
+  },
+  "background": {
+    "title": "Background",
+    "tip": "Pick a background you like — the content floats on top like a water drop. Once you choose one, it stays until you change it.",
+    "defaultTitle": "Default backgrounds",
+    "historyTitle": "Previously used",
+    "empty": "No uploaded backgrounds yet",
+    "upload": "Upload new background",
+    "saved": "Background updated"
   }
 }

@@ -446,7 +446,7 @@ export default {
   z-index: 0;
 }
 
-/* 柔和的浅色蒙层：压低背景干扰，让内容更清晰、看着解压 */
+/* 很淡的蒙层：让背景图清晰可见，卡片的水珠质感才透得出来 */
 .page-mask {
   position: fixed;
   top: 0;
@@ -454,7 +454,7 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(244, 248, 244, 0.55) 0%, rgba(240, 246, 240, 0.7) 100%);
+  background: linear-gradient(180deg, rgba(246, 250, 246, 0.18) 0%, rgba(238, 246, 238, 0.32) 100%);
 }
 
 .content {
@@ -481,8 +481,10 @@ export default {
   flex: 1;
   height: 72rpx;
   padding: 0 24rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.85);
   border-radius: 999rpx;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: inset 0 2rpx 6rpx rgba(255, 255, 255, 0.9), 0 8rpx 20rpx rgba(43, 58, 49, 0.08);
   color: #2b352f;
   font-size: 26rpx;
 }
@@ -546,22 +548,27 @@ export default {
   white-space: nowrap;
 }
 
+/* 水滴卡片：斜向高光渐变 + 内反光 + 不对称圆角（右上更尖），模拟水珠鼓起的感觉 */
 .filter-card {
   position: relative;
   margin: 24rpx 28rpx 0;
-  padding: 24rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.7);
-  border-radius: 32rpx;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 12rpx 36rpx rgba(47, 107, 79, 0.1);
-  backdrop-filter: blur(20rpx);
+  padding: 26rpx 26rpx 30rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 48rpx 48rpx 56rpx 20rpx;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.42) 55%, rgba(240, 248, 242, 0.55) 100%);
+  box-shadow:
+    inset 4rpx 4rpx 10rpx rgba(255, 255, 255, 0.95),
+    inset -6rpx -8rpx 16rpx rgba(120, 160, 135, 0.12),
+    0 16rpx 40rpx rgba(43, 76, 56, 0.16);
+  backdrop-filter: blur(16rpx) saturate(1.2);
 }
 
 .transport-row {
   display: flex;
   padding: 8rpx;
-  border-radius: 20rpx;
-  background: #f5f2ea;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 2rpx 8rpx rgba(90, 130, 105, 0.08);
 }
 
 .transport-item {
@@ -584,8 +591,9 @@ export default {
   display: flex;
   margin-top: 16rpx;
   padding: 8rpx;
-  border-radius: 20rpx;
-  background: #f5f2ea;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 2rpx 8rpx rgba(90, 130, 105, 0.08);
 }
 
 .tab {
@@ -633,13 +641,30 @@ export default {
 }
 
 .post-card {
-  margin-bottom: 24rpx;
-  padding: 30rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.75);
-  border-radius: 32rpx;
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 12rpx 32rpx rgba(43, 58, 49, 0.08);
-  backdrop-filter: blur(20rpx);
+  position: relative;
+  margin-bottom: 26rpx;
+  padding: 32rpx 30rpx 36rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 52rpx 52rpx 60rpx 22rpx;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.4) 60%, rgba(238, 247, 240, 0.52) 100%);
+  box-shadow:
+    inset 4rpx 4rpx 12rpx rgba(255, 255, 255, 0.95),
+    inset -8rpx -10rpx 18rpx rgba(120, 160, 135, 0.12),
+    0 18rpx 44rpx rgba(43, 76, 56, 0.16);
+  backdrop-filter: blur(14rpx) saturate(1.15);
+  overflow: hidden;
+}
+
+/* 水珠顶部的一小块高光，像光照在透明水滴上 */
+.post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 40rpx;
+  width: 180rpx;
+  height: 14rpx;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
 }
 
 .post-head {
@@ -800,9 +825,10 @@ export default {
   display: flex;
   align-items: center;
   padding: 24rpx 34rpx;
-  border-radius: 999rpx;
-  background: #2f6b4f;
-  box-shadow: 0 14rpx 30rpx rgba(47, 107, 79, 0.3);
+  border: 2rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 999rpx 999rpx 999rpx 28rpx;
+  background: linear-gradient(135deg, rgba(47, 107, 79, 0.96), rgba(61, 124, 92, 0.88));
+  box-shadow: inset 2rpx 2rpx 6rpx rgba(255, 255, 255, 0.35), 0 16rpx 34rpx rgba(47, 107, 79, 0.32);
   color: #fff;
   font-size: 28rpx;
   font-weight: 600;
@@ -820,11 +846,14 @@ export default {
   align-items: center;
   margin: 28rpx 28rpx 0;
   padding: 64rpx 48rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.75);
-  border-radius: 32rpx;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 12rpx 32rpx rgba(43, 58, 49, 0.08);
-  backdrop-filter: blur(20rpx);
+  border: 2rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 56rpx 56rpx 64rpx 24rpx;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 60%, rgba(238, 247, 240, 0.52) 100%);
+  box-shadow:
+    inset 4rpx 4rpx 12rpx rgba(255, 255, 255, 0.95),
+    inset -8rpx -10rpx 18rpx rgba(120, 160, 135, 0.12),
+    0 18rpx 44rpx rgba(43, 76, 56, 0.16);
+  backdrop-filter: blur(14rpx) saturate(1.15);
 }
 
 .empty-cup {

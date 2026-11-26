@@ -172,7 +172,8 @@
     "clearCacheTitle": "Vider le cache",
     "clearCacheContent": "Vider le cache ? Votre connexion sera conservée.",
     "cacheCleared": "Cache vidé",
-    "helpFeedback": "Aide et commentaires"
+    "helpFeedback": "Aide et commentaires",
+    "background": "Fond d’écran"
   },
   "profile": {
     "title": "Profil",
@@ -232,5 +233,14 @@
   },
   "agreement": {
     "empty": "Contenu de l'accord indisponible"
+  },
+  "background": {
+    "title": "Fond d’écran",
+    "tip": "Choisissez un fond qui vous plaît : le contenu flotte dessus comme une goutte d’eau. Le fond choisi reste en place jusqu’à ce que vous le changiez.",
+    "defaultTitle": "Fonds par défaut",
+    "historyTitle": "Déjà utilisés",
+    "empty": "Aucun fond téléversé pour le moment",
+    "upload": "Téléverser un nouveau fond",
+    "saved": "Fond mis à jour"
   }
 }
