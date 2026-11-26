@@ -51,11 +51,22 @@ scroll-view {
 /* 页面高度由内容决定；背景放在 html 上，不足一屏时也能铺满 */
 html,
 body {
-  background-color: #f4f0e6;
+  background-color: #eaf1eb;
+}
+
+/* 全局页面背景：由 utils/auth.js 的 applyPageBackground 写入 --tea-page-bg，
+   所有页面共用同一张图，固定在底层不随滚动 */
+page,
+uni-page-body {
+  background-color: #eaf1eb;
+  background-image: var(--tea-page-bg, none);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 page {
-  background-color: #f4f0e6;
   color: #1f2a24;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', sans-serif;

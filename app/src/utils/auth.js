@@ -68,6 +68,23 @@ export function getBackgroundUrl() {
   return DEFAULT_BACKGROUNDS[getTransportType()] || DEFAULT_BACKGROUNDS.RAIL
 }
 
+// 把当前背景图写到页面根节点，让所有页面共用同一张背景。
+// H5 下页面根节点是 uni-page-body；通过 CSS 变量传给全局样式，避免直接操作内联样式被覆盖。
+export function applyPageBackground(transportTypeOverride) {
+  // #ifdef H5
+  const user = getUser()
+  let url = user && user.backgroundImage
+  if (!url) {
+    const type = transportTypeOverride || getTransportType()
+    url = DEFAULT_BACKGROUNDS[type] || DEFAULT_BACKGROUNDS.RAIL
+  }
+  const root = document.documentElement
+  if (root) {
+    root.style.setProperty('--tea-page-bg', `url(${url})`)
+  }
+  // #endif
+}
+
 export function goHome() {
   uni.reLaunch({ url: '/pages/index/index' })
 }

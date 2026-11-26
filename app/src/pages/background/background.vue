@@ -166,7 +166,7 @@ export default {
 .page {
   min-height: 100vh;
   padding: 28rpx 28rpx 80rpx;
-  background: #f4f0e6;
+  background: transparent;
 }
 
 .nav-bar {

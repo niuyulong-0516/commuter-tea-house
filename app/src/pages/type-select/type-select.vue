@@ -116,7 +116,7 @@ export default {
 <style>
 .page {
   padding: 0 28rpx calc(180rpx + env(safe-area-inset-bottom));
-  background: #f4f0e6;
+  background: transparent;
 }
 
 .hero {

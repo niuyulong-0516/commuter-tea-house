@@ -191,7 +191,7 @@ export default {
 <style>
 .page {
   padding: 0 28rpx;
-  background: #f4f0e6;
+  background: transparent;
 }
 
 .hero {
@@ -268,7 +268,9 @@ export default {
   margin-top: -24rpx;
   padding: 32rpx 28rpx;
   border-radius: 28rpx;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.72);
+  border: 2rpx solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16rpx) saturate(1.2);
   box-shadow: 0 12rpx 36rpx rgba(47, 107, 79, 0.08);
 }
 

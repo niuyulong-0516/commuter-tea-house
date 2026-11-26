@@ -88,14 +88,16 @@ export default {
 <style>
 .page {
   padding: 28rpx 28rpx 180rpx;
-  background: #f4f0e6;
+  background: transparent;
 }
 
 .card {
   margin-bottom: 24rpx;
   padding: 28rpx;
   border-radius: 28rpx;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.72);
+  border: 2rpx solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16rpx) saturate(1.2);
   box-shadow: 0 8rpx 28rpx rgba(43, 58, 49, 0.05);
 }
 

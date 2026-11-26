@@ -1,9 +1,5 @@
 <template>
   <view class="page">
-    <!-- 底层背景图：用 CSS background-position 控制主体位置，避免方形图竖屏裁掉列车 -->
-    <view class="page-bg" :style="{ backgroundImage: 'url(' + backgroundUrl + ')' }"></view>
-    <view class="page-mask"></view>
-
     <view class="content">
     <view class="search-bar">
       <view class="menu-button" @click="showDrawer = true">
@@ -222,7 +218,7 @@ import WaterTabBar from '@/components/water-tab-bar.vue'
 import { fetchPosts, searchPosts } from '@/api/posts'
 import { fetchBanners } from '@/api/banners'
 import { PAGE_SIZE } from '@/config'
-import { getBackgroundUrl, getTransportType, getUser } from '@/utils/auth'
+import { applyPageBackground, getTransportType, getUser } from '@/utils/auth'
 import {
   avatarText,
   timeAgoParts,
@@ -244,7 +240,6 @@ export default {
       ],
       category: 'ALL',
       transportType: 'RAIL',
-      backgroundUrl: '',
       user: {},
       posts: [],
       page: 0,
@@ -257,7 +252,6 @@ export default {
   onLoad() {
     this.user = getUser() || {}
     this.transportType = this.user.transportType || getTransportType()
-    this.backgroundUrl = getBackgroundUrl()
     this.handlePostPublished = () => {
       this.loadPosts(true)
       this.loadHotPosts()
@@ -270,7 +264,7 @@ export default {
     // 从设置/背景图页返回后，重新读取用户与背景（出行偏好或背景可能变了）。
     const user = getUser()
     this.user = user || {}
-    this.backgroundUrl = getBackgroundUrl()
+    applyPageBackground()
     if (user && user.transportType && user.transportType !== this.transportType) {
       this.transportType = user.transportType
       this.posts = []
@@ -375,9 +369,9 @@ export default {
     switchTransport(type) {
       if (this.transportType === type) return
       this.transportType = type
-      // 没手动设过背景时，默认图跟着出行方式切换
+      // 没手动设过背景时，默认图跟着出行方式切换（只在首页查看层生效，不改账号偏好）
       if (!(this.user && this.user.backgroundImage)) {
-        this.backgroundUrl = getBackgroundUrl()
+        applyPageBackground(type)
       }
       this.posts = []
       this.firstLoading = true
@@ -437,31 +431,6 @@ export default {
   min-height: 100vh;
   padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
   background: transparent;
-}
-
-/* 背景图固定在底层；方形图在竖屏聚焦中部主体，不会把车裁掉 */
-.page-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  /* 焦点偏右：方形图在竖屏 cover 时保留右侧的列车/公交主体 */
-  background-position: 72% center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/* 很淡的蒙层：让背景图清晰可见，卡片的水珠质感才透得出来 */
-.page-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(246, 250, 246, 0.08) 0%, rgba(238, 246, 238, 0.18) 100%);
 }
 
 .content {

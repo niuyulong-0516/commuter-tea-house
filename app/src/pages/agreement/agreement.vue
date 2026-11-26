@@ -43,13 +43,15 @@ export default {
 <style>
 .page {
   padding: 28rpx;
-  background: #f4f0e6;
+  background: transparent;
 }
 
 .content {
   padding: 32rpx;
   border-radius: 28rpx;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.72);
+  border: 2rpx solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16rpx) saturate(1.2);
   color: #3c4a42;
   font-size: 28rpx;
   white-space: pre-wrap;
