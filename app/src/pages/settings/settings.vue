@@ -1,12 +1,6 @@
 <template>
   <view class="page">
-    <view class="nav-bar">
-      <view class="back-button" hover-class="back-button-active" @click="goBack">
-        <view class="back-arrow"></view>
-        <text class="back-text">{{ $t('common.back') }}</text>
-      </view>
-      <text class="nav-title">{{ $t('settings.title') }}</text>
-    </view>
+    <page-nav-bar title-key="settings.title" />
 
     <view class="card">
       <view class="section-title">{{ $t('settings.general') }}</view>
@@ -83,13 +77,14 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import { languages, currentLanguage, setLanguage } from '@/i18n'
 import { logout as logoutApi } from '@/api/auth'
 import { getTransportType, getUser, goEntry } from '@/utils/auth'
 import { getCacheSize, formatCacheSize, clearCache } from '@/utils/cache'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, PageNavBar },
   data() {
     return {
       languages,
@@ -114,9 +109,6 @@ export default {
     this.cacheSize = getCacheSize()
   },
   methods: {
-    goBack() {
-      uni.navigateBack()
-    },
     clearCacheConfirm() {
       uni.showModal({
         title: this.$t('settings.clearCacheTitle'),
@@ -161,52 +153,8 @@ export default {
 
 <style>
 .page {
-  padding: 28rpx 28rpx 80rpx;
+  padding: 0 28rpx 80rpx;
   background: transparent;
-}
-
-.nav-bar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 28rpx;
-  /* custom 导航栏下留出状态栏高度，H5 下该变量为 0 */
-  padding-top: var(--status-bar-height);
-}
-
-.nav-title {
-  flex: 1;
-  margin-right: 100rpx;
-  color: #35433a;
-  font-size: 32rpx;
-  font-weight: 600;
-  text-align: center;
-}
-
-.back-button {
-  display: flex;
-  align-items: center;
-  padding: 12rpx 20rpx 12rpx 14rpx;
-  border: 2rpx solid rgba(47, 107, 79, 0.2);
-  border-radius: 999rpx;
-  background: #fff;
-}
-
-.back-button-active {
-  background: #f1f5f2;
-}
-
-.back-arrow {
-  width: 16rpx;
-  height: 16rpx;
-  margin-right: 10rpx;
-  border-bottom: 4rpx solid #2f6b4f;
-  border-left: 4rpx solid #2f6b4f;
-  transform: rotate(45deg);
-}
-
-.back-text {
-  color: #2f6b4f;
-  font-size: 24rpx;
 }
 
 .card {

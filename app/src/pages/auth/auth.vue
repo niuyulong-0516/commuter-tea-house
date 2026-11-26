@@ -2,9 +2,9 @@
   <view class="page">
     <view class="hero">
       <view class="hero-top">
-        <view class="back-button" hover-class="back-button-active" @click="goBack">
-          <view class="back-arrow"></view>
-          <text class="back-text">{{ $t('auth.backToType') }}</text>
+        <view class="auth-back-button" hover-class="auth-back-active" @click="goBack">
+          <view class="auth-back-arrow"></view>
+          <text class="auth-back-text">{{ $t('auth.backToType') }}</text>
         </view>
       </view>
       <view class="brand-mark"><app-icon name="tea" :size="48" /></view>
@@ -208,7 +208,7 @@ export default {
   margin-bottom: 28rpx;
 }
 
-.back-button {
+.auth-back-button {
   display: flex;
   align-items: center;
   padding: 12rpx 24rpx 12rpx 18rpx;
@@ -217,11 +217,11 @@ export default {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.back-button-active {
+.auth-back-active {
   background: rgba(255, 255, 255, 0.22);
 }
 
-.back-arrow {
+.auth-back-arrow {
   width: 18rpx;
   height: 18rpx;
   margin-right: 14rpx;
@@ -230,7 +230,7 @@ export default {
   transform: rotate(45deg);
 }
 
-.back-text {
+.auth-back-text {
   color: rgba(255, 255, 255, 0.9);
   font-size: 24rpx;
 }

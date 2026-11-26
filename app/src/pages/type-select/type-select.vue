@@ -120,9 +120,28 @@ export default {
 }
 
 .hero {
-  padding: 40rpx 32rpx 64rpx;
-  border-radius: 0 0 40rpx 40rpx;
-  background: linear-gradient(135deg, #2f6b4f 0%, #3d7c5c 100%);
+  position: relative;
+  margin: 0 -28rpx;
+  padding: 60rpx 60rpx 72rpx;
+  border-radius: 0 0 64rpx 64rpx;
+  background: linear-gradient(135deg, rgba(47, 107, 79, 0.88), rgba(61, 124, 92, 0.72));
+  box-shadow:
+    inset 4rpx 6rpx 14rpx rgba(255, 255, 255, 0.28),
+    0 20rpx 50rpx rgba(30, 70, 48, 0.22);
+  backdrop-filter: blur(16rpx) saturate(1.2);
+  overflow: hidden;
+}
+
+/* 顶部一道柔和高光，呼应水滴质感 */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 80rpx;
+  width: 280rpx;
+  height: 18rpx;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
 }
 
 .hero-top {
@@ -135,11 +154,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 96rpx;
-  height: 96rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  width: 104rpx;
+  height: 104rpx;
+  border: 3rpx solid rgba(255, 255, 255, 0.55);
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 4rpx 6rpx 12rpx rgba(255, 255, 255, 0.4);
   color: #fff;
   font-size: 44rpx;
   font-weight: 600;
@@ -163,7 +183,7 @@ export default {
 
 .guide {
   padding: 40rpx 16rpx 20rpx;
-  color: #8e9a92;
+  color: #5f7365;
   font-size: 26rpx;
 }
 
@@ -178,15 +198,23 @@ export default {
   align-items: center;
   min-height: 180rpx;
   padding: 32rpx;
-  border: 2rpx solid #eee9df;
-  border-radius: 28rpx;
-  background: #fff;
-  box-shadow: 0 8rpx 28rpx rgba(43, 58, 49, 0.05);
+  border: 3rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 56rpx 56rpx 64rpx 24rpx;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.3));
+  box-shadow:
+    inset 5rpx 6rpx 12rpx rgba(255, 255, 255, 0.9),
+    inset -8rpx -10rpx 18rpx rgba(70, 130, 95, 0.12),
+    0 16rpx 40rpx rgba(30, 70, 48, 0.14);
+  backdrop-filter: blur(16rpx) saturate(1.2);
 }
 
 .option.active {
-  border-color: #2f6b4f;
-  background: #edf4ef;
+  border-color: rgba(47, 107, 79, 0.75);
+  background: linear-gradient(150deg, rgba(237, 244, 239, 0.85), rgba(209, 232, 216, 0.6));
+  box-shadow:
+    inset 5rpx 6rpx 12rpx rgba(255, 255, 255, 0.95),
+    inset -8rpx -10rpx 18rpx rgba(47, 107, 79, 0.18),
+    0 18rpx 44rpx rgba(47, 107, 79, 0.24);
 }
 
 .option-icon {
@@ -248,23 +276,26 @@ export default {
   bottom: 0;
   z-index: 10;
   padding: 20rpx 28rpx calc(20rpx + env(safe-area-inset-bottom));
-  background: rgba(244, 240, 230, 0.96);
+  background: linear-gradient(to top, rgba(234, 241, 235, 0.9), rgba(234, 241, 235, 0));
 }
 
 .confirm-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 92rpx;
-  border-radius: 999rpx;
-  background: #2f6b4f;
+  height: 96rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 999rpx 999rpx 999rpx 32rpx;
+  background: linear-gradient(135deg, rgba(47, 107, 79, 0.96), rgba(61, 124, 92, 0.88));
+  box-shadow: inset 3rpx 4rpx 8rpx rgba(255, 255, 255, 0.3), 0 16rpx 34rpx rgba(47, 107, 79, 0.35);
   color: #fff;
   font-size: 30rpx;
   font-weight: 600;
 }
 
 .confirm-button.disabled {
-  background: #b8c4bc;
-  color: #f4f0e6;
+  background: rgba(160, 176, 166, 0.7);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.85);
 }
 </style>

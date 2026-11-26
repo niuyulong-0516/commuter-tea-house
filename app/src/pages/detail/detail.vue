@@ -75,7 +75,7 @@
     <view v-else-if="!loading" class="state">
       <text class="state-title">{{ $t('detail.notFoundTitle') }}</text>
       <text class="state-text">{{ $t('detail.notFoundDesc') }}</text>
-      <view class="back-button" @click="backToIndex">{{ $t('detail.backToIndex') }}</view>
+      <view class="back-home-button" @click="backToIndex">{{ $t('detail.backToIndex') }}</view>
     </view>
 
     <view v-if="post" class="bottom-space"></view>
@@ -220,7 +220,7 @@ export default {
 
 <style>
 .page {
-  padding: 28rpx 28rpx 0;
+  padding: 0 28rpx 0;
   background: transparent;
 }
 
@@ -462,7 +462,7 @@ export default {
   text-align: center;
 }
 
-.back-button {
+.back-home-button {
   margin-top: 34rpx;
   padding: 18rpx 54rpx;
   border-radius: 999rpx;

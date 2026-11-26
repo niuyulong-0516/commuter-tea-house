@@ -72,7 +72,7 @@ export default {
 
 <style>
 .page {
-  padding: 28rpx;
+  padding: 0 28rpx 40rpx;
   background: transparent;
 }
 
