@@ -115,16 +115,16 @@ export default {
 
 <style>
 .page {
-  padding: 0 28rpx calc(180rpx + env(safe-area-inset-bottom));
+  padding: calc(var(--status-bar-height) + 28rpx) 28rpx calc(180rpx + env(safe-area-inset-bottom));
   background: transparent;
 }
 
 .ts-hero {
   position: relative;
-  margin: 0 -28rpx;
-  padding: 60rpx 60rpx 72rpx;
-  border-radius: 0 0 64rpx 64rpx;
-  background: linear-gradient(135deg, rgba(47, 107, 79, 0.88), rgba(61, 124, 92, 0.72));
+  margin: 0;
+  padding: 52rpx 40rpx 60rpx;
+  border-radius: 56rpx 56rpx 72rpx 28rpx;
+  background: linear-gradient(135deg, rgba(47, 107, 79, 0.58), rgba(61, 124, 92, 0.38));
   box-shadow:
     inset 4rpx 6rpx 14rpx rgba(255, 255, 255, 0.28),
     0 20rpx 50rpx rgba(30, 70, 48, 0.22);
@@ -286,8 +286,9 @@ export default {
   height: 96rpx;
   border: 2rpx solid rgba(255, 255, 255, 0.5);
   border-radius: 999rpx 999rpx 999rpx 32rpx;
-  background: linear-gradient(135deg, rgba(47, 107, 79, 0.96), rgba(61, 124, 92, 0.88));
-  box-shadow: inset 3rpx 4rpx 8rpx rgba(255, 255, 255, 0.3), 0 16rpx 34rpx rgba(47, 107, 79, 0.35);
+  background: linear-gradient(135deg, rgba(47, 107, 79, 0.72), rgba(61, 124, 92, 0.6));
+  box-shadow: inset 4rpx 5rpx 10rpx rgba(255, 255, 255, 0.45), inset -6rpx -8rpx 14rpx rgba(20, 70, 44, 0.2), 0 16rpx 34rpx rgba(47, 107, 79, 0.3);
+  backdrop-filter: blur(14rpx) saturate(1.25);
   color: #fff;
   font-size: 30rpx;
   font-weight: 600;
