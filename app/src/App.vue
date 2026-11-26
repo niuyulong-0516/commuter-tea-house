@@ -91,4 +91,9 @@ button::after {
 uni-tabbar {
   display: none !important;
 }
+
+/* 去掉原生 tabBar 在页面底部预留的占位空白 */
+.uni-app--showtabbar uni-page-wrapper::after {
+  display: none !important;
+}
 </style>
