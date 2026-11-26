@@ -173,7 +173,8 @@ export default {
   display: flex;
   align-items: center;
   margin-bottom: 24rpx;
-  padding-top: var(--status-bar-height);
+  /* H5 下 --status-bar-height 为 0，额外留 20rpx 避免贴顶 */
+  padding-top: calc(var(--status-bar-height) + 20rpx);
 }
 
 .nav-title {

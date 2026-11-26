@@ -54,7 +54,7 @@
     {
       "path": "pages/background/background",
       "style": {
-        "navigationBarTitleText": "背景图"
+        "navigationStyle": "custom"
       }
     },
     {
