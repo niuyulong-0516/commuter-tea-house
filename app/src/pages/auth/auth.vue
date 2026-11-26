@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar :title-key="mode === 'register' ? 'auth.register' : 'auth.login'" />
+    <page-nav-bar :title-key="mode === 'register' ? 'auth.registerTitle' : 'auth.loginTitle'" />
     <view class="hero">
       <view class="brand-mark"><app-icon name="tea" :size="48" /></view>
       <text class="brand-title">{{ mode === 'register' ? $t('auth.registerTitle') : $t('auth.loginTitle') }}</text>

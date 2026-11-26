@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar title-key="type-select.title" />
+    <page-nav-bar title-key="typeSelect.title" />
     <view class="ts-hero">
       <view class="ts-hero-top">
         <view class="brand-mark"><app-icon name="tea" :size="52" /></view>
@@ -184,8 +184,14 @@ export default {
 }
 
 .guide {
-  padding: 40rpx 16rpx 20rpx;
-  color: #5f7365;
+  margin: 24rpx 0 20rpx;
+  padding: 20rpx 28rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 3rpx 4rpx 8rpx rgba(255, 255, 255, 0.9), 0 10rpx 24rpx rgba(30, 70, 48, 0.12);
+  backdrop-filter: blur(14rpx) saturate(1.2);
+  color: #4d6455;
   font-size: 26rpx;
 }
 
