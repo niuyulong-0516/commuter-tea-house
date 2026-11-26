@@ -63,6 +63,20 @@ export default {
     // 从详情页返回时刷新未读（全局 mixin 也会刷新一次，这里保证列表最新）
     refreshUnread()
   },
+  computed: {
+    incoming() {
+      return notificationState.incoming
+    },
+  },
+  watch: {
+    // WebSocket 收到新通知时即时插入列表顶部，无需退出重进
+    incoming(item) {
+      if (!item || !item.id) return
+      if (this.notifications.some((n) => n.id === item.id)) return
+      this.notifications.unshift(item)
+      if (this.notifications.length > 20) this.notifications.pop()
+    },
+  },
   methods: {
     async reload() {
       this.loading = true
@@ -90,7 +104,7 @@ export default {
         try {
           await markNotificationRead(item.id)
           item.read = true
-          if (notificationState.unread > 0) notificationState.unread -= 1
+          notificationState.unread = Math.max(0, notificationState.unread - 1)
         } catch (e) {
           // 标记失败不影响跳转
         }

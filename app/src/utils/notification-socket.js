@@ -13,6 +13,7 @@ export const notificationState = reactive({
 let socket = null
 let retryTimer = null
 let retryDelay = 3000
+let stopped = false
 
 function wsUrl() {
   // https -> wss，http -> ws
@@ -22,7 +23,8 @@ function wsUrl() {
 }
 
 function connect() {
-  if (MOCK_MODE) return
+  if (MOCK_MODE || stopped) return
+  if (socket) return
   const token = getToken()
   if (!token || !uni.connectSocket) return
 
@@ -47,10 +49,12 @@ function connect() {
     })
 
     socket.onClose(() => {
+      socket = null
       scheduleReconnect()
     })
 
     socket.onError(() => {
+      socket = null
       scheduleReconnect()
     })
   } catch (e) {
@@ -78,12 +82,14 @@ export function refreshUnread() {
 /** 应用启动时调用一次，登录后建立长连接。 */
 export function startNotificationSocket() {
   if (MOCK_MODE) return
+  stopped = false
   refreshUnread()
   connect()
 }
 
 /** 退出登录时断开。 */
 export function stopNotificationSocket() {
+  stopped = true
   if (retryTimer) {
     clearTimeout(retryTimer)
     retryTimer = null
