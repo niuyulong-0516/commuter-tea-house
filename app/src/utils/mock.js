@@ -120,6 +120,25 @@ export function mockRequest({ url, method = 'GET', data }) {
 
   if (path === '/api/locale/detect') return ok({ language: 'zh' })
 
+  // 通知（mock 用内存数组）
+  let mockNotifications = []
+  if (path === '/api/notifications' && method === 'GET') {
+    return ok({ items: mockNotifications, page: 0, size: 20, total: mockNotifications.length, hasMore: false })
+  }
+  if (path === '/api/notifications/unread-count' && method === 'GET') {
+    return ok({ count: mockNotifications.filter((n) => !n.read).length })
+  }
+  if (path === '/api/notifications/read-all' && method === 'POST') {
+    mockNotifications.forEach((n) => { n.read = true })
+    return ok({})
+  }
+  const readMatch = path.match(/^\/api\/notifications\/(\d+)\/read$/)
+  if (readMatch && method === 'POST') {
+    const item = mockNotifications.find((n) => n.id === Number(readMatch[1]))
+    if (item) item.read = true
+    return ok({})
+  }
+
   if (path === '/api/feedback' && method === 'POST') {
     if (!data || !data.description || !data.description.trim()) {
       return fail('问题描述不能为空')

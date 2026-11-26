@@ -83,6 +83,7 @@
         <button class="nav-item" data-panel="posts" onclick="switchPanel('posts', this)">帖子管理</button>
         <button class="nav-item" data-panel="feedbacks" onclick="switchPanel('feedbacks', this)">反馈管理</button>
         <button class="nav-item" data-panel="users" onclick="switchPanel('users', this)">用户管理</button>
+        <button class="nav-item" data-panel="notify" onclick="switchPanel('notify', this)">消息推送</button>
       </div>
       <div class="main">
         <div id="panel-dashboard" class="panel active">
@@ -118,6 +119,17 @@
         <div id="panel-users" class="panel">
           <h2>用户管理</h2>
           <table><thead><tr><th>编号</th><th>用户名</th><th>昵称</th><th>角色</th><th>出行</th><th>注册时间</th></tr></thead><tbody id="usersBody"></tbody></table>
+        </div>
+        <div id="panel-notify" class="panel">
+          <h2>消息推送</h2>
+          <div class="agreement-card">
+            <h3>发送官方消息</h3>
+            <p style="color:#666;font-size:13px;margin:8px 0">用户 ID 留空表示发给所有用户；填写则只发给指定用户（用户 ID 可在「用户管理」查看数据库主键 id）。</p>
+            <input id="notifyTitle" placeholder="消息标题，例如：茶馆公告" style="width:100%;margin-bottom:10px" />
+            <textarea id="notifyContent" placeholder="消息内容"></textarea>
+            <input id="notifyUserId" placeholder="用户 ID（留空=发给所有人）" style="width:100%;margin:10px 0" />
+            <div class="bar"><span id="notifyResult"></span><button class="btn" onclick="sendNotification()">发送消息</button></div>
+          </div>
         </div>
       </div>
     </div>
@@ -273,6 +285,22 @@
             <td>${esc(u.transportType)}</td>
             <td>${fmt(u.createdAt)}</td>
           </tr>`).join('') : '<tr><td colspan="6" class="empty">暂无数据</td></tr>'
+      } catch (e) { toast(e.message) }
+    }
+
+    async function sendNotification() {
+      const title = $('notifyTitle').value.trim()
+      const content = $('notifyContent').value.trim()
+      const userIdRaw = $('notifyUserId').value.trim()
+      if (!title || !content) { toast('标题和内容不能为空'); return }
+      const payload = { title, content, userId: userIdRaw ? Number(userIdRaw) : null }
+      if (userIdRaw && !Number.isInteger(payload.userId)) { toast('用户 ID 必须是数字'); return }
+      try {
+        const result = await api('/api/admin/notifications/send', { method: 'POST', body: JSON.stringify(payload) })
+        $('notifyResult').textContent = '已发送给 ' + result.sent + ' 位用户'
+        $('notifyTitle').value = ''
+        $('notifyContent').value = ''
+        toast('发送成功')
       } catch (e) { toast(e.message) }
     }
 

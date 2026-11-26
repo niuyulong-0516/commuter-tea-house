@@ -246,5 +246,11 @@
   },
   "mine": {
     "title": "Mein Bereich"
+  },
+  "message": {
+    "title": "Nachrichten",
+    "empty": "Noch keine Nachrichten",
+    "markAllRead": "Alle gelesen",
+    "marked": "Alle als gelesen markiert"
   }
 }

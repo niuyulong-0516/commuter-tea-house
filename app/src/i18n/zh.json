@@ -246,5 +246,11 @@
   },
   "mine": {
     "title": "我的"
+  },
+  "message": {
+    "title": "消息",
+    "empty": "暂无消息",
+    "markAllRead": "全部已读",
+    "marked": "已全部标为已读"
   }
 }

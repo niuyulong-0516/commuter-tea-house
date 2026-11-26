@@ -78,6 +78,7 @@
 <script>
 import AppIcon from '@/components/app-icon.vue'
 import PageNavBar from '@/components/page-nav-bar.vue'
+import { stopNotificationSocket } from '@/utils/notification-socket'
 import { languages, currentLanguage, setLanguage } from '@/i18n'
 import { logout as logoutApi } from '@/api/auth'
 import { getTransportType, getUser, goEntry } from '@/utils/auth'
@@ -145,6 +146,7 @@ export default {
       } catch (error) {
         // 接口失败也要清掉本地登录态
       }
+      stopNotificationSocket()
       goEntry()
     },
   },

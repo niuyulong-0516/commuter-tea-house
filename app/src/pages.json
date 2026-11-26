@@ -40,6 +40,12 @@
       }
     },
     {
+      "path": "pages/message/message",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/settings/settings",
       "style": {
         "navigationStyle": "custom"
@@ -118,6 +124,12 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
+        "iconPath": "static/tab-home.png",
+        "selectedIconPath": "static/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
         "iconPath": "static/tab-home.png",
         "selectedIconPath": "static/tab-home-active.png"
       },

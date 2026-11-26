@@ -1,5 +1,7 @@
 package com.commutertea.post;
 
+import com.commutertea.notification.Notification;
+import com.commutertea.notification.NotificationService;
 import com.commutertea.post.dto.CommentResponse;
 import com.commutertea.post.dto.CreateCommentRequest;
 import com.commutertea.post.dto.InteractionStateResponse;
@@ -23,13 +25,16 @@ public class PostSocialService {
     private final PostRepository postRepository;
     private final PostInteractionRepository interactionRepository;
     private final PostCommentRepository commentRepository;
+    private final NotificationService notificationService;
 
     public PostSocialService(PostRepository postRepository,
                              PostInteractionRepository interactionRepository,
-                             PostCommentRepository commentRepository) {
+                             PostCommentRepository commentRepository,
+                             NotificationService notificationService) {
         this.postRepository = postRepository;
         this.interactionRepository = interactionRepository;
         this.commentRepository = commentRepository;
+        this.notificationService = notificationService;
     }
 
     @Transactional(readOnly = true)
@@ -60,6 +65,10 @@ public class PostSocialService {
             interaction.setCreatedAt(LocalDateTime.now());
             interactionRepository.save(interaction);
             active = true;
+            // 点赞（收藏不算）产生通知
+            if (InteractionType.LIKE.equals(type)) {
+                notificationService.notifyPostInteraction(postId, Notification.TYPE_LIKE, user, null);
+            }
         }
         return new InteractionToggleResponse(active, interactionRepository.countByPostIdAndType(postId, type));
     }
@@ -89,6 +98,7 @@ public class PostSocialService {
         comment.setContent(request.content().trim());
         comment.setCreatedAt(LocalDateTime.now());
         commentRepository.save(comment);
+        notificationService.notifyPostInteraction(postId, Notification.TYPE_COMMENT, user, comment.getContent());
         return CommentResponse.from(comment);
     }
 

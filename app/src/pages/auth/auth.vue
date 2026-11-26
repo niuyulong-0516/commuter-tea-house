@@ -77,6 +77,7 @@
 <script>
 import AppIcon from '@/components/app-icon.vue'
 import PageNavBar from '@/components/page-nav-bar.vue'
+import { startNotificationSocket } from '@/utils/notification-socket'
 import { login, register } from '@/api/auth'
 import {
   clearPendingTransportType,
@@ -172,6 +173,7 @@ export default {
             : this.$t('auth.loginSuccess'),
           icon: 'none',
         })
+        startNotificationSocket()
         setTimeout(goHome, 600)
       } catch (error) {
         uni.hideLoading()

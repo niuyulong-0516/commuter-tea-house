@@ -246,5 +246,11 @@
   },
   "mine": {
     "title": "Mío"
+  },
+  "message": {
+    "title": "Mensajes",
+    "empty": "Aún no hay mensajes",
+    "markAllRead": "Marcar todo leído",
+    "marked": "Todo marcado como leído"
   }
 }

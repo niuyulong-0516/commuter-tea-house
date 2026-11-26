@@ -246,5 +246,11 @@
   },
   "mine": {
     "title": "마이페이지"
+  },
+  "message": {
+    "title": "메시지",
+    "empty": "메시지가 없습니다",
+    "markAllRead": "모두 읽음",
+    "marked": "모두 읽음 처리됨"
   }
 }

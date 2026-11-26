@@ -3,15 +3,20 @@ package com.commutertea.admin;
 import com.commutertea.admin.dto.DashboardResponse;
 import com.commutertea.common.Feedback;
 import com.commutertea.common.FeedbackRepository;
+import com.commutertea.notification.NotificationService;
+import com.commutertea.notification.dto.SendNotificationRequest;
 import com.commutertea.post.Post;
 import com.commutertea.post.PostCommentRepository;
 import com.commutertea.post.PostRepository;
 import com.commutertea.user.User;
 import com.commutertea.user.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,15 +35,18 @@ public class AdminController {
     private final PostRepository postRepository;
     private final PostCommentRepository commentRepository;
     private final FeedbackRepository feedbackRepository;
+    private final NotificationService notificationService;
 
     public AdminController(UserRepository userRepository,
                            PostRepository postRepository,
                            PostCommentRepository commentRepository,
-                           FeedbackRepository feedbackRepository) {
+                           FeedbackRepository feedbackRepository,
+                           NotificationService notificationService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.feedbackRepository = feedbackRepository;
+        this.notificationService = notificationService;
     }
 
     @GetMapping("/dashboard")
@@ -49,6 +57,13 @@ public class AdminController {
                 commentRepository.count(),
                 feedbackRepository.count()
         );
+    }
+
+    /** 发送官方消息；userId 为空表示发给所有用户。 */
+    @PostMapping("/notifications/send")
+    public Map<String, Object> sendNotification(@Valid @RequestBody SendNotificationRequest request) {
+        int count = notificationService.sendOfficial(request.title(), request.content(), request.userId());
+        return Map.of("sent", count);
     }
 
     @GetMapping("/users")

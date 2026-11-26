@@ -8,7 +8,13 @@
         :class="{ active: selected === index }"
         @click="switchTab(index)"
       >
-        <app-icon :name="item.icon" :size="34" :color="selected === index ? '#ffffff' : '#4e7a5f'" />
+        <view class="drop-icon-wrap">
+          <app-icon :name="item.icon" :size="34" :color="selected === index ? '#ffffff' : '#4e7a5f'" />
+          <!-- 消息未读红点 -->
+          <view v-if="item.icon === 'message' && unread > 0" class="badge">
+            {{ unread > 99 ? '99+' : unread }}
+          </view>
+        </view>
         <text class="drop-text">{{ item.text }}</text>
       </view>
     </view>
@@ -18,9 +24,11 @@
 <script>
 import { reactive } from 'vue'
 import AppIcon from '@/components/app-icon.vue'
+import { notificationState } from '@/utils/notification-socket'
 
 const TABS = [
   { pagePath: '/pages/index/index', text: '首页', icon: 'tea' },
+  { pagePath: '/pages/message/message', text: '消息', icon: 'message' },
   { pagePath: '/pages/mine/mine', text: '我的', icon: 'user' },
 ]
 
@@ -42,6 +50,9 @@ export default {
     }
   },
   computed: {
+    unread() {
+      return notificationState.unread
+    },
     selected() {
       return tabState.selected
     },
@@ -77,8 +88,8 @@ export default {
 .tab-bar {
   display: flex;
   align-items: center;
-  gap: 36rpx;
-  padding: 12rpx 28rpx;
+  gap: 20rpx;
+  padding: 12rpx 24rpx;
   border: 2rpx solid rgba(255, 255, 255, 0.9);
   border-radius: 999rpx;
   background: rgba(255, 255, 255, 0.45);
@@ -115,6 +126,26 @@ export default {
     inset 4rpx 6rpx 10rpx rgba(255, 255, 255, 0.5),
     inset -6rpx -8rpx 14rpx rgba(20, 70, 44, 0.3),
     0 12rpx 28rpx rgba(47, 107, 79, 0.4);
+}
+
+.drop-icon-wrap {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -12rpx;
+  right: -18rpx;
+  min-width: 34rpx;
+  height: 34rpx;
+  padding: 0 8rpx;
+  border: 2rpx solid #fff;
+  border-radius: 999rpx;
+  background: #e05c4b;
+  color: #fff;
+  font-size: 20rpx;
+  text-align: center;
+  line-height: 30rpx;
 }
 
 .drop-text {
