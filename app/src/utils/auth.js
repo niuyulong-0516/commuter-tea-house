@@ -56,6 +56,18 @@ export function getTransportType() {
   return (user && user.transportType) || getPendingTransportType() || 'RAIL'
 }
 
+// 内置默认背景：按出行方式取图；用户手动设置过则以用户选择的为准。
+const DEFAULT_BACKGROUNDS = {
+  RAIL: '/static/backgrounds/bg-rail.jpg',
+  BUS: '/static/backgrounds/bg-bus.jpg',
+}
+
+export function getBackgroundUrl() {
+  const user = getUser()
+  if (user && user.backgroundImage) return user.backgroundImage
+  return DEFAULT_BACKGROUNDS[getTransportType()] || DEFAULT_BACKGROUNDS.RAIL
+}
+
 export function goHome() {
   uni.reLaunch({ url: '/pages/index/index' })
 }

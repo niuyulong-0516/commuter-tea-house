@@ -1,5 +1,10 @@
 <template>
   <view class="page">
+    <!-- 底层背景图：用户手动设置优先，否则按出行方式显示内置图 -->
+    <image class="page-bg" :src="backgroundUrl" mode="aspectFill" />
+    <view class="page-mask"></view>
+
+    <view class="content">
     <view class="search-bar">
       <view class="menu-button" @click="showDrawer = true">
         <app-icon name="menu" :size="36" color="#2f6b4f" />
@@ -160,6 +165,7 @@
       <text class="fab-plus">+</text>
       <text>{{ $t('home.publish') }}</text>
     </view>
+    </view>
 
     <view v-if="showDrawer" class="drawer-mask" @click="showDrawer = false"></view>
     <view class="drawer" :class="{ open: showDrawer }">
@@ -213,7 +219,7 @@ import AppIcon from '@/components/app-icon.vue'
 import { fetchPosts, searchPosts } from '@/api/posts'
 import { fetchBanners } from '@/api/banners'
 import { PAGE_SIZE } from '@/config'
-import { getTransportType, getUser } from '@/utils/auth'
+import { getBackgroundUrl, getTransportType, getUser } from '@/utils/auth'
 import {
   avatarText,
   timeAgoParts,
@@ -235,6 +241,7 @@ export default {
       ],
       category: 'ALL',
       transportType: 'RAIL',
+      backgroundUrl: '',
       user: {},
       posts: [],
       page: 0,
@@ -247,6 +254,7 @@ export default {
   onLoad() {
     this.user = getUser() || {}
     this.transportType = this.user.transportType || getTransportType()
+    this.backgroundUrl = getBackgroundUrl()
     this.handlePostPublished = () => {
       this.loadPosts(true)
       this.loadHotPosts()
@@ -256,10 +264,11 @@ export default {
     this.loadHotPosts()
   },
   onShow() {
-    // 从「切换出行」页返回后，若偏好变了就按新类型重新加载。
+    // 从设置/背景图页返回后，重新读取用户与背景（出行偏好或背景可能变了）。
     const user = getUser()
+    this.user = user || {}
+    this.backgroundUrl = getBackgroundUrl()
     if (user && user.transportType && user.transportType !== this.transportType) {
-      this.user = user
       this.transportType = user.transportType
       this.posts = []
       this.firstLoading = true
@@ -363,6 +372,10 @@ export default {
     switchTransport(type) {
       if (this.transportType === type) return
       this.transportType = type
+      // 没手动设过背景时，默认图跟着出行方式切换
+      if (!(this.user && this.user.backgroundImage)) {
+        this.backgroundUrl = getBackgroundUrl()
+      }
       this.posts = []
       this.firstLoading = true
       this.loadPosts(true)
@@ -417,8 +430,36 @@ export default {
 
 <style>
 .page {
+  position: relative;
+  min-height: 100vh;
   padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
-  background: #f4f0e6;
+  background: #eaf1eb;
+}
+
+/* 背景图固定在底层，滚动时不跟随，避免内容卡片遮挡时反复移动 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* 柔和的浅色蒙层：压低背景干扰，让内容更清晰、看着解压 */
+.page-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(244, 248, 244, 0.55) 0%, rgba(240, 246, 240, 0.7) 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
 }
 
 .search-bar {
@@ -426,7 +467,6 @@ export default {
   align-items: center;
   /* H5 下 --status-bar-height 为 0，额外留 20rpx 避免贴顶 */
   padding: calc(var(--status-bar-height) + 20rpx) 28rpx 20rpx;
-  background: #f4f0e6;
 }
 
 .menu-button {
@@ -510,9 +550,11 @@ export default {
   position: relative;
   margin: 24rpx 28rpx 0;
   padding: 24rpx;
-  border-radius: 28rpx;
-  background: #fff;
-  box-shadow: 0 12rpx 36rpx rgba(47, 107, 79, 0.08);
+  border: 2rpx solid rgba(255, 255, 255, 0.7);
+  border-radius: 32rpx;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12rpx 36rpx rgba(47, 107, 79, 0.1);
+  backdrop-filter: blur(20rpx);
 }
 
 .transport-row {
@@ -593,9 +635,11 @@ export default {
 .post-card {
   margin-bottom: 24rpx;
   padding: 30rpx;
-  border-radius: 28rpx;
-  background: #fff;
-  box-shadow: 0 8rpx 28rpx rgba(43, 58, 49, 0.06);
+  border: 2rpx solid rgba(255, 255, 255, 0.75);
+  border-radius: 32rpx;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12rpx 32rpx rgba(43, 58, 49, 0.08);
+  backdrop-filter: blur(20rpx);
 }
 
 .post-head {
@@ -774,7 +818,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 28rpx 28rpx 0;
   padding: 64rpx 48rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.75);
+  border-radius: 32rpx;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12rpx 32rpx rgba(43, 58, 49, 0.08);
+  backdrop-filter: blur(20rpx);
 }
 
 .empty-cup {

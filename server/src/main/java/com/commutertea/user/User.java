@@ -39,6 +39,10 @@ public class User {
     @Column(length = 512)
     private String avatar;
 
+    /** 当前选中的背景图 URL；为空时前端按出行方式显示默认图。 */
+    @Column(length = 512)
+    private String backgroundImage;
+
     @Column(length = 32)
     private String nickname;
 
@@ -111,6 +115,14 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 
     public String getNickname() {

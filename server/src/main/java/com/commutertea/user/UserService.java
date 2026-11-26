@@ -1,6 +1,7 @@
 package com.commutertea.user;
 
 import com.commutertea.common.TransportType;
+import com.commutertea.user.dto.BackgroundResponse;
 import com.commutertea.user.dto.LoginRequest;
 import com.commutertea.user.dto.RegisterRequest;
 import com.commutertea.user.dto.UpdateProfileRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -17,10 +19,13 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserBackgroundRepository backgroundRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserBackgroundRepository backgroundRepository,
+                       BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.backgroundRepository = backgroundRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -83,6 +88,56 @@ public class UserService {
         user.setGender(request.gender());
         user.setBio(request.bio());
         return UserResponse.from(user);
+    }
+
+    /** 背景图历史：当前使用的一张 + 用户用过的全部图片。 */
+    public BackgroundResponse listBackgrounds(User user) {
+        List<BackgroundResponse.Item> items = backgroundRepository
+                .findByUserIdOrderByCreatedAtDesc(user.getId())
+                .stream()
+                .map(item -> new BackgroundResponse.Item(item.getId(), item.getUrl(), item.getCreatedAt()))
+                .toList();
+        return new BackgroundResponse(user.getBackgroundImage(), items);
+    }
+
+    /** 保存一张新背景图：已存在则直接复用，不重复入库，并设为当前。 */
+    @Transactional
+    public BackgroundResponse saveBackground(User user, String url) {
+        if (url == null || url.isBlank()) {
+            throw new IllegalArgumentException("图片地址不能为空");
+        }
+        String trimmed = url.trim();
+        boolean exists = backgroundRepository.findByUserIdOrderByCreatedAtDesc(user.getId())
+                .stream()
+                .anyMatch(item -> trimmed.equals(item.getUrl()));
+        if (!exists) {
+            UserBackground background = new UserBackground();
+            background.setUserId(user.getId());
+            background.setUrl(trimmed);
+            background.setCreatedAt(LocalDateTime.now());
+            backgroundRepository.save(background);
+        }
+        user.setBackgroundImage(trimmed);
+        return listBackgrounds(user);
+    }
+
+    /** 从历史中选一张作为当前背景；只能选自己的图。 */
+    @Transactional
+    public BackgroundResponse selectBackground(User user, Long id) {
+        UserBackground background = backgroundRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("背景图不存在"));
+        if (!user.getId().equals(background.getUserId())) {
+            throw new IllegalArgumentException("无权使用这张背景图");
+        }
+        user.setBackgroundImage(background.getUrl());
+        return listBackgrounds(user);
+    }
+
+    /** 恢复默认背景（按出行方式展示内置图）。 */
+    @Transactional
+    public BackgroundResponse clearBackground(User user) {
+        user.setBackgroundImage(null);
+        return listBackgrounds(user);
     }
 
     @Transactional

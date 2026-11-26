@@ -162,6 +162,30 @@ export function mockRequest({ url, method = 'GET', data }) {
     return ok({ ...DEMO_USER })
   }
 
+  // 背景图历史（mock 用内存数组，重启页面即重置）
+  let mockBackgrounds = []
+  if (path === '/api/auth/backgrounds') {
+    if (method === 'GET') return ok({ current: DEMO_USER.backgroundImage || '', items: mockBackgrounds })
+    if (method === 'POST') {
+      const url = (data && data.url || '').trim()
+      if (url && !mockBackgrounds.some((item) => item.url === url)) {
+        mockBackgrounds = [{ id: Date.now(), url, createdAt: new Date().toISOString() }, ...mockBackgrounds]
+      }
+      DEMO_USER.backgroundImage = url
+      return ok({ current: url, items: mockBackgrounds })
+    }
+    if (method === 'DELETE') {
+      DEMO_USER.backgroundImage = ''
+      return ok({ current: '', items: mockBackgrounds })
+    }
+  }
+  const bgSelectMatch = path.match(/^\/api\/auth\/backgrounds\/(\d+)$/)
+  if (bgSelectMatch && method === 'PUT') {
+    const item = mockBackgrounds.find((b) => b.id === Number(bgSelectMatch[1]))
+    if (item) DEMO_USER.backgroundImage = item.url
+    return ok({ current: DEMO_USER.backgroundImage || '', items: mockBackgrounds })
+  }
+
   if (path.startsWith('/api/library/')) {
     const rest = path.slice('/api/library/'.length)
     const historyMatch = rest.match(/^history\/(\d+)$/)

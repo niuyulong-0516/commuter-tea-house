@@ -52,6 +52,12 @@
       }
     },
     {
+      "path": "pages/background/background",
+      "style": {
+        "navigationBarTitleText": "背景图"
+      }
+    },
+    {
       "path": "pages/favorites/favorites",
       "style": {
         "navigationBarTitleText": "我的收藏",

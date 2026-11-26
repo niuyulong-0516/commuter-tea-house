@@ -168,11 +168,21 @@
     "save": "保存资料",
     "saved": "资料已保存",
     "general": "通用",
+    "background": "背景图",
     "clearCache": "清理缓存",
     "clearCacheTitle": "清理缓存",
     "clearCacheContent": "确定要清理缓存吗？登录信息会保留。",
     "cacheCleared": "缓存已清理",
     "helpFeedback": "帮助反馈"
+  },
+  "background": {
+    "title": "背景图",
+    "tip": "选一张喜欢的背景，首页内容会像水滴一样浮在上面。手动选过之后就不会再随出行方式变化。",
+    "defaultTitle": "默认背景",
+    "historyTitle": "我用过的",
+    "empty": "还没有上传过背景图",
+    "upload": "上传新背景图",
+    "saved": "背景已更换"
   },
   "profile": {
     "title": "个人资料",

@@ -10,6 +10,13 @@
 
     <view class="card">
       <view class="section-title">{{ $t('settings.general') }}</view>
+      <view class="row" @click="goBackground">
+        <view class="row-left">
+          <app-icon name="image" :size="32" color="#2f6b4f" />
+          <text class="row-label">{{ $t('settings.background') }}</text>
+        </view>
+        <text class="row-arrow">›</text>
+      </view>
       <view class="row" @click="goTransport">
         <view class="row-left">
           <app-icon :name="transportType === 'BUS' ? 'bus' : 'rail'" :size="32" color="#2f6b4f" />
@@ -136,6 +143,9 @@ export default {
     },
     goTransport() {
       uni.navigateTo({ url: '/pages/type-select/type-select?from=settings' })
+    },
+    goBackground() {
+      uni.navigateTo({ url: '/pages/background/background' })
     },
     async logout() {
       try {
