@@ -16,29 +16,44 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import AppIcon from '@/components/app-icon.vue'
+
+const TABS = [
+  { pagePath: '/pages/index/index', text: '首页', icon: 'tea' },
+  { pagePath: '/pages/mine/mine', text: '我的', icon: 'user' },
+]
+
+// 选中状态放在模块级，首页和我的页共用同一份，避免各页面实例不同步。
+const tabState = reactive({ selected: 0 })
+
+function syncSelected() {
+  const pages = getCurrentPages()
+  const route = pages[pages.length - 1] && pages[pages.length - 1].route
+  const index = TABS.findIndex((item) => item.pagePath.endsWith(route || ''))
+  tabState.selected = index >= 0 ? index : 0
+}
 
 export default {
   components: { AppIcon },
   data() {
     return {
-      selected: 0,
-      list: [
-        { pagePath: '/pages/index/index', text: '首页', icon: 'tea' },
-        { pagePath: '/pages/mine/mine', text: '我的', icon: 'user' },
-      ],
+      list: TABS,
     }
   },
+  computed: {
+    selected() {
+      return tabState.selected
+    },
+  },
   mounted() {
-    const pages = getCurrentPages()
-    const route = pages[pages.length - 1] && pages[pages.length - 1].route
-    const index = this.list.findIndex((item) => item.pagePath.endsWith(route || ''))
-    if (index >= 0) this.selected = index
+    syncSelected()
   },
   methods: {
     switchTab(index) {
-      if (this.selected === index) return
-      this.selected = index
+      if (tabState.selected === index) return
+      // 先更新共享状态：所有页面的水滴组件读同一份，点击后立即生效
+      tabState.selected = index
       uni.switchTab({ url: this.list[index].pagePath })
     },
   },
