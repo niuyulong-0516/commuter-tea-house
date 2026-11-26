@@ -1,12 +1,7 @@
 <template>
   <view class="page">
+    <page-nav-bar :title-key="mode === 'register' ? 'auth.register' : 'auth.login'" />
     <view class="hero">
-      <view class="hero-top">
-        <view class="auth-back-button" hover-class="auth-back-active" @click="goBack">
-          <view class="auth-back-arrow"></view>
-          <text class="auth-back-text">{{ $t('auth.backToType') }}</text>
-        </view>
-      </view>
       <view class="brand-mark"><app-icon name="tea" :size="48" /></view>
       <text class="brand-title">{{ mode === 'register' ? $t('auth.registerTitle') : $t('auth.loginTitle') }}</text>
       <text class="brand-subtitle">
@@ -81,6 +76,7 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import { login, register } from '@/api/auth'
 import {
   clearPendingTransportType,
@@ -91,7 +87,7 @@ import {
 } from '@/utils/auth'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, PageNavBar },
   data() {
     return {
       mode: 'register',
@@ -226,33 +222,6 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 28rpx;
-}
-
-.auth-back-button {
-  display: flex;
-  align-items: center;
-  padding: 12rpx 24rpx 12rpx 18rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.32);
-  border-radius: 999rpx;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.auth-back-active {
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.auth-back-arrow {
-  width: 18rpx;
-  height: 18rpx;
-  margin-right: 14rpx;
-  border-bottom: 4rpx solid #fff;
-  border-left: 4rpx solid #fff;
-  transform: rotate(45deg);
-}
-
-.auth-back-text {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 24rpx;
 }
 
 .brand-mark {

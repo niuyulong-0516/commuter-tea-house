@@ -1,5 +1,6 @@
 <template>
   <view class="page">
+    <page-nav-bar title-key="type-select.title" />
     <view class="ts-hero">
       <view class="ts-hero-top">
         <view class="brand-mark"><app-icon name="tea" :size="52" /></view>
@@ -54,6 +55,7 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import PageNavBar from '@/components/page-nav-bar.vue'
 import {
   getPendingTransportType,
   getUser,
@@ -65,7 +67,7 @@ import {
 import { updateTransportType } from '@/api/auth'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, PageNavBar },
   data() {
     return {
       selected: '',
