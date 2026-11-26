@@ -269,34 +269,43 @@ export default {
   font-size: 28rpx;
 }
 
+/* 底部托住按钮的玻璃盘，与底部 tabBar 的质感一致 */
 .ts-bottom-bar {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 10;
-  padding: 20rpx 28rpx calc(20rpx + env(safe-area-inset-bottom));
-  background: linear-gradient(to top, rgba(234, 241, 235, 0.9), rgba(234, 241, 235, 0));
+  display: flex;
+  justify-content: center;
+  padding: 24rpx 28rpx calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(234, 241, 235, 0.72), rgba(234, 241, 235, 0));
 }
 
 .ts-confirm-button {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 420rpx;
   height: 96rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.5);
-  border-radius: 999rpx 999rpx 999rpx 32rpx;
-  background: linear-gradient(135deg, rgba(47, 107, 79, 0.72), rgba(61, 124, 92, 0.6));
-  box-shadow: inset 4rpx 5rpx 10rpx rgba(255, 255, 255, 0.45), inset -6rpx -8rpx 14rpx rgba(20, 70, 44, 0.2), 0 16rpx 34rpx rgba(47, 107, 79, 0.3);
-  backdrop-filter: blur(14rpx) saturate(1.25);
+  border: 3rpx solid rgba(255, 255, 255, 0.8);
+  /* 上圆下收的水滴轮廓，像一颗托起的水珠 */
+  border-radius: 50% 50% 50% 50% / 72% 72% 36% 36%;
+  background: linear-gradient(150deg, rgba(93, 152, 113, 0.85), rgba(47, 107, 79, 0.72));
+  box-shadow:
+    inset 5rpx 8rpx 14rpx rgba(255, 255, 255, 0.55),
+    inset -8rpx -10rpx 18rpx rgba(20, 70, 44, 0.28),
+    0 16rpx 36rpx rgba(47, 107, 79, 0.32);
+  backdrop-filter: blur(16rpx) saturate(1.3);
   color: #fff;
   font-size: 30rpx;
   font-weight: 600;
+  letter-spacing: 2rpx;
 }
 
 .ts-confirm-button.disabled {
-  background: rgba(160, 176, 166, 0.7);
-  box-shadow: none;
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(160, 176, 166, 0.55);
+  box-shadow: inset 4rpx 6rpx 10rpx rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.9);
 }
 </style>

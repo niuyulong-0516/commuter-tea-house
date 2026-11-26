@@ -3,14 +3,14 @@
     {
       "path": "pages/type-select/type-select",
       "style": {
-        "navigationBarTitleText": "选择出行方式",
-        "disableScroll": true
+        "disableScroll": true,
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/auth/auth",
       "style": {
-        "navigationBarTitleText": "登录茶馆"
+        "navigationStyle": "custom"
       }
     },
     {

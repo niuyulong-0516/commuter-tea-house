@@ -190,15 +190,35 @@ export default {
 
 <style>
 .page {
-  padding: 0 28rpx;
+  padding: calc(var(--status-bar-height) + 28rpx) 28rpx 60rpx;
   background: transparent;
 }
 
 .hero {
-  margin: 0 -28rpx;
-  padding: 56rpx 32rpx 64rpx;
-  border-radius: 0 0 40rpx 40rpx;
-  background: linear-gradient(135deg, #2f6b4f 0%, #3d7c5c 100%);
+  position: relative;
+  margin: 0;
+  padding: 52rpx 40rpx 60rpx;
+  border: 3rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 56rpx 56rpx 72rpx 28rpx;
+  background: linear-gradient(135deg, rgba(47, 107, 79, 0.72), rgba(61, 124, 92, 0.55));
+  box-shadow:
+    inset 5rpx 8rpx 14rpx rgba(255, 255, 255, 0.35),
+    inset -8rpx -10rpx 18rpx rgba(20, 70, 44, 0.2),
+    0 20rpx 50rpx rgba(30, 70, 48, 0.22);
+  backdrop-filter: blur(16rpx) saturate(1.25);
+  overflow: hidden;
+}
+
+/* 顶部弧光 */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 60rpx;
+  width: 260rpx;
+  height: 18rpx;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
 }
 
 .hero-top {
