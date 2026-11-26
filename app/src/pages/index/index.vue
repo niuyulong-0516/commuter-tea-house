@@ -436,7 +436,7 @@ export default {
   position: relative;
   min-height: 100vh;
   padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
-  background: #eaf1eb;
+  background: transparent;
 }
 
 /* 背景图固定在底层；方形图在竖屏聚焦中部主体，不会把车裁掉 */
@@ -447,7 +447,8 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 0;
-  background-position: center 45%;
+  /* 焦点偏右：方形图在竖屏 cover 时保留右侧的列车/公交主体 */
+  background-position: 72% center;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -460,7 +461,7 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(246, 250, 246, 0.18) 0%, rgba(238, 246, 238, 0.32) 100%);
+  background: linear-gradient(180deg, rgba(246, 250, 246, 0.08) 0%, rgba(238, 246, 238, 0.18) 100%);
 }
 
 .content {
