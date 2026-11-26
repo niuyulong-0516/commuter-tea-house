@@ -1,7 +1,7 @@
 <template>
   <view class="page">
-    <view class="hero">
-      <view class="hero-top">
+    <view class="ts-hero">
+      <view class="ts-hero-top">
         <view class="brand-mark"><app-icon name="tea" :size="52" /></view>
       </view>
       <text class="brand-title">{{ $t('common.appName') }}</text>
@@ -40,9 +40,9 @@
       </view>
     </view>
 
-    <view class="bottom-bar">
+    <view class="ts-bottom-bar">
       <view
-        class="confirm-button"
+        class="ts-confirm-button"
         :class="{ disabled: !selected || submitting }"
         @click="confirm"
       >
@@ -119,7 +119,7 @@ export default {
   background: transparent;
 }
 
-.hero {
+.ts-hero {
   position: relative;
   margin: 0 -28rpx;
   padding: 60rpx 60rpx 72rpx;
@@ -133,7 +133,7 @@ export default {
 }
 
 /* 顶部一道柔和高光，呼应水滴质感 */
-.hero::before {
+.ts-hero::before {
   content: '';
   position: absolute;
   top: 0;
@@ -144,7 +144,7 @@ export default {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
 }
 
-.hero-top {
+.ts-hero-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -269,7 +269,7 @@ export default {
   font-size: 28rpx;
 }
 
-.bottom-bar {
+.ts-bottom-bar {
   position: fixed;
   left: 0;
   right: 0;
@@ -279,7 +279,7 @@ export default {
   background: linear-gradient(to top, rgba(234, 241, 235, 0.9), rgba(234, 241, 235, 0));
 }
 
-.confirm-button {
+.ts-confirm-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,7 +293,7 @@ export default {
   font-weight: 600;
 }
 
-.confirm-button.disabled {
+.ts-confirm-button.disabled {
   background: rgba(160, 176, 166, 0.7);
   box-shadow: none;
   color: rgba(255, 255, 255, 0.85);
