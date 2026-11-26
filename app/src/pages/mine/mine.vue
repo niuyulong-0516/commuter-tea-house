@@ -40,16 +40,18 @@
     </view>
 
     <view class="version">{{ $t('settings.version') }}</view>
+    <water-tab-bar />
   </view>
 </template>
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import WaterTabBar from '@/components/water-tab-bar.vue'
 import { getUser } from '@/utils/auth'
 import { resolveImageUrl } from '@/utils/format'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, WaterTabBar },
   data() {
     return {
       user: {},
@@ -85,7 +87,7 @@ export default {
 
 <style>
 .page {
-  padding: 28rpx 28rpx 80rpx;
+  padding: 28rpx 28rpx 180rpx;
   background: #f4f0e6;
 }
 

@@ -1,7 +1,7 @@
 <template>
   <view class="page">
-    <!-- 底层背景图：用户手动设置优先，否则按出行方式显示内置图 -->
-    <image class="page-bg" :src="backgroundUrl" mode="aspectFill" />
+    <!-- 底层背景图：用 CSS background-position 控制主体位置，避免方形图竖屏裁掉列车 -->
+    <view class="page-bg" :style="{ backgroundImage: 'url(' + backgroundUrl + ')' }"></view>
     <view class="page-mask"></view>
 
     <view class="content">
@@ -167,6 +167,8 @@
     </view>
     </view>
 
+    <water-tab-bar />
+
     <view v-if="showDrawer" class="drawer-mask" @click="showDrawer = false"></view>
     <view class="drawer" :class="{ open: showDrawer }">
       <view class="drawer-head">
@@ -216,6 +218,7 @@
 
 <script>
 import AppIcon from '@/components/app-icon.vue'
+import WaterTabBar from '@/components/water-tab-bar.vue'
 import { fetchPosts, searchPosts } from '@/api/posts'
 import { fetchBanners } from '@/api/banners'
 import { PAGE_SIZE } from '@/config'
@@ -227,7 +230,7 @@ import {
 } from '@/utils/format'
 
 export default {
-  components: { AppIcon },
+  components: { AppIcon, WaterTabBar },
   data() {
     return {
       showDrawer: false,
@@ -436,7 +439,7 @@ export default {
   background: #eaf1eb;
 }
 
-/* 背景图固定在底层，滚动时不跟随，避免内容卡片遮挡时反复移动 */
+/* 背景图固定在底层；方形图在竖屏聚焦中部主体，不会把车裁掉 */
 .page-bg {
   position: fixed;
   top: 0;
@@ -444,6 +447,9 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 0;
+  background-position: center 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* 很淡的蒙层：让背景图清晰可见，卡片的水珠质感才透得出来 */
@@ -548,19 +554,19 @@ export default {
   white-space: nowrap;
 }
 
-/* 水滴卡片：斜向高光渐变 + 内反光 + 不对称圆角（右上更尖），模拟水珠鼓起的感觉 */
+/* 水滴卡片：高透明玻璃 + 明显内高光 + 不对称圆角，背景图能透进来 */
 .filter-card {
   position: relative;
   margin: 24rpx 28rpx 0;
   padding: 26rpx 26rpx 30rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.85);
-  border-radius: 48rpx 48rpx 56rpx 20rpx;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.42) 55%, rgba(240, 248, 242, 0.55) 100%);
+  border: 3rpx solid rgba(255, 255, 255, 0.9);
+  border-radius: 56rpx 56rpx 64rpx 24rpx;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.26) 50%, rgba(228, 244, 232, 0.4) 100%);
   box-shadow:
-    inset 4rpx 4rpx 10rpx rgba(255, 255, 255, 0.95),
-    inset -6rpx -8rpx 16rpx rgba(120, 160, 135, 0.12),
-    0 16rpx 40rpx rgba(43, 76, 56, 0.16);
-  backdrop-filter: blur(16rpx) saturate(1.2);
+    inset 6rpx 8rpx 14rpx rgba(255, 255, 255, 0.95),
+    inset -10rpx -12rpx 22rpx rgba(70, 130, 95, 0.18),
+    0 20rpx 50rpx rgba(30, 70, 48, 0.2);
+  backdrop-filter: blur(18rpx) saturate(1.35);
 }
 
 .transport-row {
@@ -642,16 +648,16 @@ export default {
 
 .post-card {
   position: relative;
-  margin-bottom: 26rpx;
+  margin-bottom: 28rpx;
   padding: 32rpx 30rpx 36rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.85);
-  border-radius: 52rpx 52rpx 60rpx 22rpx;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.4) 60%, rgba(238, 247, 240, 0.52) 100%);
+  border: 3rpx solid rgba(255, 255, 255, 0.9);
+  border-radius: 60rpx 60rpx 68rpx 24rpx;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.24) 50%, rgba(228, 244, 232, 0.38) 100%);
   box-shadow:
-    inset 4rpx 4rpx 12rpx rgba(255, 255, 255, 0.95),
-    inset -8rpx -10rpx 18rpx rgba(120, 160, 135, 0.12),
-    0 18rpx 44rpx rgba(43, 76, 56, 0.16);
-  backdrop-filter: blur(14rpx) saturate(1.15);
+    inset 6rpx 8rpx 14rpx rgba(255, 255, 255, 0.95),
+    inset -10rpx -12rpx 22rpx rgba(70, 130, 95, 0.18),
+    0 20rpx 50rpx rgba(30, 70, 48, 0.2);
+  backdrop-filter: blur(16rpx) saturate(1.35);
   overflow: hidden;
 }
 
@@ -820,7 +826,7 @@ export default {
 .publish-fab {
   position: fixed;
   right: 32rpx;
-  bottom: calc(132rpx + env(safe-area-inset-bottom));
+  bottom: calc(176rpx + env(safe-area-inset-bottom));
   z-index: 10;
   display: flex;
   align-items: center;
@@ -846,14 +852,14 @@ export default {
   align-items: center;
   margin: 28rpx 28rpx 0;
   padding: 64rpx 48rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.85);
-  border-radius: 56rpx 56rpx 64rpx 24rpx;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 60%, rgba(238, 247, 240, 0.52) 100%);
+  border: 3rpx solid rgba(255, 255, 255, 0.9);
+  border-radius: 64rpx 64rpx 72rpx 28rpx;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.24) 50%, rgba(228, 244, 232, 0.38) 100%);
   box-shadow:
-    inset 4rpx 4rpx 12rpx rgba(255, 255, 255, 0.95),
-    inset -8rpx -10rpx 18rpx rgba(120, 160, 135, 0.12),
-    0 18rpx 44rpx rgba(43, 76, 56, 0.16);
-  backdrop-filter: blur(14rpx) saturate(1.15);
+    inset 6rpx 8rpx 14rpx rgba(255, 255, 255, 0.95),
+    inset -10rpx -12rpx 22rpx rgba(70, 130, 95, 0.18),
+    0 20rpx 50rpx rgba(30, 70, 48, 0.2);
+  backdrop-filter: blur(16rpx) saturate(1.35);
 }
 
 .empty-cup {

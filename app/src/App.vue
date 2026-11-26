@@ -74,4 +74,10 @@ scroll-view {
 button::after {
   border: none;
 }
+
+/* 隐藏原生 tabBar，改用页面内的水滴组件（switchTab 逻辑仍走原生） */
+.uni-tabbar,
+uni-tabbar {
+  display: none !important;
+}
 </style>
