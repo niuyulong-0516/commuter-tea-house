@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="drawer.drafts" />
     <view v-if="loading" class="state">{{ $t('common.loading') }}</view>
     <view v-else-if="!drafts.length" class="state">{{ $t('drafts.empty') }}</view>
     <view v-else class="list">
@@ -25,6 +25,7 @@ import PageNavBar from '@/components/page-nav-bar.vue'
 import { timeAgoParts } from '@/utils/format'
 
 export default {
+  components: { PageNavBar },
   data() {
     return {
       drafts: [],

@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar :title-key="titleKey" />
     <view v-if="loading" class="state">{{ $t('common.loading') }}</view>
     <view v-else-if="!posts.length" class="state">{{ emptyText }}</view>
     <view v-else class="list">
@@ -29,6 +29,7 @@ import PageNavBar from '@/components/page-nav-bar.vue'
 export default {
   components: { PageNavBar },
   props: {
+    titleKey: { type: String, required: true },
     load: { type: Function, required: true },
     emptyText: { type: String, default: '' },
     openUrl: { type: Function, default: null },

@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="about.title" />
     <view class="brand">
       <image class="logo" src="/static/app-logo.png" mode="aspectFit" />
       <text class="app-name">{{ $t('common.appName') }}</text>

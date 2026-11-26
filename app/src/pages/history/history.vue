@@ -1,5 +1,6 @@
 <template>
   <post-list-page
+    title-key="drawer.history"
     :load="fetchHistory"
     :empty-text="$t('history.empty')"
     :open-url="openUrl"

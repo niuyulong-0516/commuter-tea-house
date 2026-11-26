@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="feedback.title" />
     <view class="card">
       <view class="field">
         <text class="field-label">{{ $t('feedback.description') }} <text class="required">*</text></text>
@@ -50,6 +50,7 @@ import PageNavBar from '@/components/page-nav-bar.vue'
 import { uploadPostImage } from '@/api/posts'
 
 export default {
+  components: { PageNavBar },
   data() {
     return {
       description: '',

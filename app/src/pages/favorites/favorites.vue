@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="drawer.favorite" />
     <view v-if="loading" class="state">{{ $t('common.loading') }}</view>
     <view v-else-if="!posts.length" class="state">
       <text class="state-text">{{ $t('favorites.empty') }}</text>
@@ -29,6 +29,7 @@ import PageNavBar from '@/components/page-nav-bar.vue'
 import { avatarText, timeAgoParts, resolveImageUrl } from '@/utils/format'
 
 export default {
+  components: { PageNavBar },
   data() {
     return {
       posts: [],

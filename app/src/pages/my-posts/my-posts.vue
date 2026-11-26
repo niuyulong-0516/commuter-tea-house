@@ -1,5 +1,6 @@
 <template>
   <post-list-page
+    title-key="drawer.myPosts"
     :load="fetchMyPosts"
     :empty-text="$t('myPosts.empty')"
     :open-url="openUrl"

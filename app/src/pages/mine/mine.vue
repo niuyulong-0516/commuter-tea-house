@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar :show-back="false" />
+    <page-nav-bar title-key="mine.title" :show-back="false" />
     <view class="profile-card">
       <view class="profile-head">
         <view class="avatar">
@@ -52,7 +52,7 @@ import { getUser } from '@/utils/auth'
 import { resolveImageUrl } from '@/utils/format'
 
 export default {
-  components: { AppIcon, WaterTabBar },
+  components: { AppIcon, WaterTabBar, PageNavBar },
   data() {
     return {
       user: {},

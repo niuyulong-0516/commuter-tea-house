@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="home.publish" />
     <view class="card editor">
       <text class="section-label">{{ $t('publish.sectionLabel') }}</text>
 
@@ -103,6 +103,7 @@ import { saveDraft, fetchDraft, deleteDraft } from '@/api/library'
 import { getTransportType } from '@/utils/auth'
 
 export default {
+  components: { PageNavBar },
   data() {
     return {
       categoryOptions: [

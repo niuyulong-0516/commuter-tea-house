@@ -12,34 +12,16 @@
 
 <script>
 // 统一透明导航栏：与设置页一致，让全局背景图从顶部透出来。
-const TITLES = {
-  'pages/publish/publish': 'home.publish',
-  'pages/detail/detail': 'detail.title',
-  'pages/profile/profile': 'profile.title',
-  'pages/favorites/favorites': 'drawer.favorite',
-  'pages/history/history': 'drawer.history',
-  'pages/my-posts/my-posts': 'drawer.myPosts',
-  'pages/drafts/drafts': 'drawer.drafts',
-  'pages/feedback/feedback': 'feedback.title',
-  'pages/about/about': 'about.title',
-  'pages/agreement/agreement': 'agreement.title',
-  'pages/mine/mine': 'mine.title',
-}
-
 export default {
   props: {
-    // 自定义标题；不传则按当前页面路由取 i18n key
-    titleKey: { type: String, default: '' },
+    // i18n key，由页面显式传入
+    titleKey: { type: String, required: true },
     // tab 页没有返回按钮
     showBack: { type: Boolean, default: true },
   },
   computed: {
     title() {
-      if (this.titleKey) return this.$t(this.titleKey)
-      const pages = getCurrentPages()
-      const route = pages[pages.length - 1] && pages[pages.length - 1].route
-      const key = TITLES[route || '']
-      return key ? this.$t(key) : ''
+      return this.$t(this.titleKey)
     },
   },
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="profile.title" />
     <view class="card">
       <view class="avatar-row" @click="chooseAvatar">
         <view class="avatar">
@@ -64,6 +64,7 @@ import { getUser, setUser } from '@/utils/auth'
 import { resolveImageUrl } from '@/utils/format'
 
 export default {
+  components: { PageNavBar },
   data() {
     return {
       profile: { avatar: '', nickname: '', gender: 'SECRET', bio: '' },

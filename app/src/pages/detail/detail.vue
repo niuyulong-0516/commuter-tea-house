@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <page-nav-bar />
+    <page-nav-bar title-key="detail.title" />
     <view v-if="loading" class="state">
       <text class="state-text">{{ $t('detail.loading') }}</text>
     </view>
