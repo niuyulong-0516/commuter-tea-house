@@ -125,7 +125,7 @@ App 安装包建议用 HBuilderX 打开 `app/` 目录后云打包。
 | 服务 | 用途 | 免费额度说明 |
 | --- | --- | --- |
 | GitHub | 代码仓库，Render 从这里拉取代码 | 免费私有仓库 |
-| Render | 跑 Spring Boot 后端 + 托管 PostgreSQL 数据库 | Web Service 免费层；数据库免费层 30 天后过期，需手动续期；服务 15 分钟无访问会休眠 |
+| Render | 跑 Spring Boot 后端 + 托管 PostgreSQL 数据库 | Web Service 永久免费（15 分钟无访问休眠）；免费 PostgreSQL 创建后 30 天过期，不可免费续期 |
 | Cloudflare Pages | 托管前端 H5 静态站点 | 免费，带宽充足 |
 | Cloudflare R2 | 存放用户上传的图片 | 10 GB/月存储免费，无出站流量费 |
 
@@ -199,7 +199,7 @@ R2_PUBLIC_URL    = https://pub-xxxx.r2.dev
 
 ### 部署后注意
 
-- Render 免费数据库 30 天后过期，留意 Render 邮件并按时续期
+- Render 免费 PostgreSQL 创建后 30 天过期，**不能免费续期**：过期后有 14 天宽限期，期间可付费升级保住数据，否则数据被删除；每个账号同时只能有 1 个免费库，可删除旧库后新建（数据不保留）
 - Render 免费服务休眠后首次访问会慢（约 30 秒），属正常现象
 - Google Play 上架要求后端为 HTTPS，Render 默认提供 `onrender.com` 的 HTTPS 域名，可直接使用
 - 图片上传后返回的是 R2 公开 URL，不占用后端磁盘
