@@ -4,7 +4,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./server/Dockerfile
-    dockerContext: .
+    dockerContext: ./server
     healthCheckPath: /api/locale/detect
     envVars:
       - key: SERVER_PORT

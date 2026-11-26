@@ -18,8 +18,8 @@
 
 - 前端：uni-app（Vue 3 + Vite），一套代码可输出 H5、微信小程序、App
 - 后端：Java 17 + Spring Boot 3.3 + Spring Data JPA
-- 数据库：H2 文件数据库（本地零配置，后续可换 MySQL）
-- 图片：本地 `uploads/` 目录，通过 `/uploads/**` 静态访问
+- 数据库：本地 H2 文件数据库 / 部署时 PostgreSQL（Render 免费实例）
+- 图片：本地 `uploads/` 目录 / 部署时 Cloudflare R2 对象存储
 
 ## 目录结构
 
@@ -115,6 +115,94 @@ npm run build:mp-weixin # 输出 app/dist/build/mp-weixin
 ```
 
 App 安装包建议用 HBuilderX 打开 `app/` 目录后云打包。
+
+## 线上部署
+
+部署目标是：前端静态站点 + 后端服务 + 数据库 + 图片对象存储，全部走免费额度，适合上架前的验证阶段。
+
+### 用到的服务
+
+| 服务 | 用途 | 免费额度说明 |
+| --- | --- | --- |
+| GitHub | 代码仓库，Render 从这里拉取代码 | 免费私有仓库 |
+| Render | 跑 Spring Boot 后端 + 托管 PostgreSQL 数据库 | Web Service 免费层；数据库免费层 30 天后过期，需手动续期；服务 15 分钟无访问会休眠 |
+| Cloudflare Pages | 托管前端 H5 静态站点 | 免费，带宽充足 |
+| Cloudflare R2 | 存放用户上传的图片 | 10 GB/月存储免费，无出站流量费 |
+
+### 部署前准备
+
+代码里已经写好了两份部署配置，不需要手动改：
+
+- `render.yaml`：Render Blueprint，一键创建后端服务和数据库
+- `server/Dockerfile`：后端 Docker 镜像构建
+- `app/src/config.js`：前端通过环境变量切换后端地址
+
+环境变量的下发规则：
+
+- 本地开发不配任何环境变量，默认用 H2 + 本地 `uploads/`
+- 线上由 Render / Cloudflare Pages 注入环境变量，自动切换到 PostgreSQL + R2
+
+### 第一步：Cloudflare R2（图片存储）
+
+1. 注册 Cloudflare 并进入 R2，首次开通会要求绑卡（仅身份验证，免费额度内不扣费）
+2. 创建存储桶，名称填 `commuter-tea`
+3. 桶设置 → 「公共开发 URL」→ 点「启用」，得到公开地址，形如 `https://pub-xxxx.r2.dev`
+4. 进入「管理 R2 API 令牌」→ 创建令牌：
+   - 类型选「账户 API 令牌」（Account API Token）
+   - 权限选「对象读和写」（Object Read & Write）
+   - 存储桶只勾选 `commuter-tea`
+   - TTL 留空（永不过期）
+5. 创建后保存 **Access Key ID** 和 **Secret Access Key**（Secret 只显示一次）
+6. 在 R2 首页右侧能看到 **Account ID**
+
+记下这 5 个值（后面 Render 要用）：
+
+```text
+R2_ENDPOINT      = https://<Account ID>.r2.cloudflarestorage.com
+R2_BUCKET        = commuter-tea
+R2_ACCESS_KEY    = <Access Key ID>
+R2_SECRET_KEY    = <Secret Access Key>
+R2_PUBLIC_URL    = https://pub-xxxx.r2.dev
+```
+
+注意：`R2_ENDPOINT` 只到域名，末尾不要带 `/commuter-tea`，桶名单独填在 `R2_BUCKET`。
+
+### 第二步：Render（后端 + 数据库）
+
+1. 代码推送到 GitHub 仓库（Render 只支持 GitHub / GitLab / Bitbucket，不支持 Gitee）
+2. 用 GitHub 账号登录 https://render.com
+3. 打开 https://dashboard.render.com/blueprints → **New Blueprint Instance**
+4. 选择 GitHub 仓库 `niuyulong-0516/commuter-tea-house`
+5. Render 会自动识别根目录的 `render.yaml`，点 **Apply**
+6. 在变量填写页填入第一步的 5 个 R2 变量
+7. Render 会自动创建并关联：
+   - Web Service `commuter-tea-server`（Docker 构建，端口 8090）
+   - PostgreSQL 数据库 `commuter_tea`
+   - 数据库连接串由 Blueprint 自动注入，不用手填
+
+后端健康检查地址：`/api/locale/detect`。
+
+### 第三步：Cloudflare Pages（前端 H5）
+
+1. 在 `app/` 目录构建：`npm run build:h5`，产物在 `app/dist/build/h5`
+2. Cloudflare Dashboard → Workers & Pages → Create → Pages → 连接 GitHub 仓库
+3. 构建配置：
+   - 构建命令：`cd app && npm install && npm run build:h5`
+   - 构建输出目录：`app/dist/build/h5`
+   - Node 版本选 22 以上（见 `app/.nvmrc`）
+4. 环境变量（部署前设置，改完要重新构建）：
+   ```text
+   VITE_API_BASE_URL=https://<你的后端服务名>.onrender.com
+   VITE_MOCK_MODE=false
+   ```
+5. `VITE_MOCK_MODE=false` 才会走真实后端接口，否则一直是 mock 数据
+
+### 部署后注意
+
+- Render 免费数据库 30 天后过期，留意 Render 邮件并按时续期
+- Render 免费服务休眠后首次访问会慢（约 30 秒），属正常现象
+- Google Play 上架要求后端为 HTTPS，Render 默认提供 `onrender.com` 的 HTTPS 域名，可直接使用
+- 图片上传后返回的是 R2 公开 URL，不占用后端磁盘
 
 ## 接口
 
